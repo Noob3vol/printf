@@ -1,167 +1,119 @@
 #include <unistd.h>
+#include <stdarg.h>
 #include "ft_printf.h"
-#include "libft.h"
-#define FLAGS "-0"
-#define	FIELD ".*0123456789"
-#define	FORMAT "cspdiuxX%"
 
 
 /*
- *	Analyser
-*/
-int	ft_is_field(char c)
-{
-	if ((c >= '1' && c <= '9') || c == '*')
-		return (1);
-	return (0);
-}
-
-int	ft_is_flags(char c)
-{
-	if (c == '-' || c == '0')
-		return (1);
-	return (0);
-}
-
-int	ft_is_format(char c)
-{
-	char 	formats[] = FORMATS;
-	int	i;
-
-	i = 0;
-	while (flags[i])
-	{	if (c == flags[i])
-		{
-			return (i);
-		}
-		i++;
-	}
-	return (-1);
-}
-/*
-** Handler
+** Format processor
 */
 
-int	ft_handle_field(char **str, t_db *param)
+int	pf_c(t_db , void *)
 {
-	char b_dot;
-
-	while (**str)
-	{
-		if (((**str == '.' || param->precision >= 0) && b_dot) 
-				|| **str == '*' && !b_dot && param->width >= 0)
-			return (-1);
-		if (((**str >= '0' && **str <= '9')))
-			param->width = pf_atoi(str);
-	if (b_dot = (**str == '.'))
-	{
-		param->precision = 0;
-		(*str)++;
-	}
-	{
-		if (param->width >= 0)
-			
-		if (param->precision >= 0 &&	
-	else	if(**str == '*')
-	else
-				return (1);
-	}
-	return (0);
+	return (write(1, ":ToImplement%c:", 16));
 }
 
-/*
- * Format processor
-*/
-
-
-int	pf_per(t_db, void *)
+int	pf_s(t_db , void *)
 {
-	write(1, "%", 1);
-	return (1);
+	return (write(1, ":ToImplement%s:", 16));
 }
 
-int	(*ptr)(t_db, void *)ft_handle_format(t_db param, char c)
+int	pf_p(t_db , void *)
 {
-	int	(*fntab[])(t_db, void *) = 
+	return (write(1, ":ToImplement%p:", 16));
+}
+
+int	pf_d(t_db , void *)
+{
+	return (write(1, ":ToImplement%d:", 16));
+}
+
+int	pf_i(t_db , void *)
+{
+	return (write(1, ":ToImplement%i:", 16));
+}
+
+int	pf_u(t_db , void *)
+{
+	return (write(1, ":ToImplement%u:", 16));
+}
+
+int	pf_x(t_db , void *)
+{
+	return (write(1, ":ToImplement%x:", 16));
+}
+
+int	pf_X(t_db , void *)
+{
+	return (write(1, ":ToImplement%X:", 16));
+}
+
+void	ft_pf_putnbr(int nbr, int *count)
+{
+	if (nbr < -9 || nbr > 9)
+		ft_pf_putnbr(nbr / 10, count);
+	*count += write(1, &"0123456789"[(ft_abs(nbr % 10))], 1);
+}
+
+int	pf_dump_tokens(t_db tokens)
+{
+	int count;
+
+	count = 0;
+	if (tokens.flags_mask & 2)
+		count += write(1, "-", 1);
+	if (tokens.width >= 0)
+		ft_pf_putnbr(tokens.width, &count);
+	if (tokens.precision > 0)
 	{
-		&pf_c,
-		&pf_s, 
-		&pf_p, 
-		&pf_d, 
-		&pf_i, 
-		&pf_u, 
-		&pf_x, 
-		&pf_X,
-		&pf_per
+		count += write(1, ".", 1);
+		ft_pf_putnbr(tokens.precision, &count);
 	}
-	if (c == '%')
-	{
-		write(1, "%", 1);
-		return (1);
-	}
-	if (!c)
-		return (-1);
+	return (count);
 }
 
 void	ft_init_param(t_db *param, char **str, int *i)
 {
 	param->flags_mask = 0;
-	width = -1;
-	precision =-1;
+	param->width = -1;
+	param->precision = -1;
 	*str = &((*str)[i]);
 	i = 0;
 }
-
-
-
-int	ft_pf_atoi(char **str)
-{
-	int	nbr;
-
-	nbr = 0;
-	while (**str >= '0' && **str <= '9')
-	{
-		str 
-
-
-int	ft_handle_flags(char c, t_db *param)
-{
-		if (!c)
-			return (-1);
-		if (c == '-')
-			param->flags_mask &= 1;
-		if (c == '0')
-			param->flags_mask &= 2;
-	return (1);
-}
-
-
 
 int	ft_printf(char *str, ...)
 {
 	int 	i;
 	int	count;
+	int	ret;
 	t_db	param;
+	va_list ap;
 
 	i = 0;
 	count = 0;
+	ret = 0;
+	va_start(ap ,str);
 	while (str[i])
 	{
 		if (str[i] == '%')
 		{
-			count += write(1, str, i);
+			count += write(1, str, i++);
 			ft_init_param(&param, &str, &i);
-			if (!ft_handle_flags(&str, &param))
-			return (-1);
+			ft_handle_flags(&str, &param);
+			ft_handle_field(&str, &param, &ap);
+			if (!(ret = ft_handle_format(*(str++), param, &ap)))
+				return (-1);
+			count += ret;
 		}
-		i++;
+		else
+			i++;
 	}
+	va_end(ap);
 	count += write(1, str, i);
 	return (count);
 }
 
 int	main(void)
 {
-		ft_printf("Hello World");
+		ft_printf("Hello%      % World !");
 		return (0);
 }
