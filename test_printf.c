@@ -2,6 +2,6 @@
 
 int	main(void)
 {
-	printf("%00.f", 10.1111);
+	printf(":%+10.c:\n", 'a');
 	return (0);
 }
