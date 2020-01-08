@@ -29,10 +29,10 @@ WFLAG= -Wall -Werror -Wextra
 all : $(NAME)
 
 $(NAME) : $(OBJ) $(D_HDR)/$(HDR)
-	$(CC) $(WFLAG) -o $(NAME) -I$(D_HDR) $(OBJ) -I$(D_LIB)/include $(D_LIB)/$(LIB)
+	$(CC) $(WFLAG) $(DFLAG) -o $(NAME) -I$(D_HDR) $(OBJ) -I$(D_LIB)/include $(D_LIB)/$(LIB)
 
 $(OBJ) : $(T_SRC)
-	$(CC) -I$(D_HDR) -c $(T_SRC) 
+	$(CC) -I$(D_HDR) -c $(T_SRC)  -I$(D_LIB)/include 
 
 clean :
 	rm -f $(OBJ)

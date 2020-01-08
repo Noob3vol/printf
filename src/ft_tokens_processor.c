@@ -19,16 +19,9 @@ void	ft_handle_field(char **str, t_db *param, va_list *fields)
 	b_dot = 0;
 	while (ft_is_field(**str))
 	{
-		if ((b_dot && (**str == '.' || param->precision >= 0)) 
-				|| (**str == '*' && !b_dot && param->width >= 0))
-			return ;
-		if ((b_dot = (**str == '.')))
-		{
-			if (*str[-1] == '0')
-				param->width = 0;
-			param->precision = 0;
-			(*str)++;
-		}
+	     if ((b_dot && (**str == '.'))
+			     || (**str == '*' && !b_dot && param->width >= 0))
+	     	return ;
 		if (((**str >= '0' && **str <= '9')))
 		{
 			if (b_dot)
@@ -42,6 +35,13 @@ void	ft_handle_field(char **str, t_db *param, va_list *fields)
 				param->precision = va_arg(*fields, int);
 			else
 				param->width = va_arg(*fields, int);
+			(*str)++;
+		}
+		else if ((b_dot = (**str == '.')))
+		{
+			if ((*str)[-1] == '0' && param->width == -1)
+				param->width = 0;
+			param->precision = 0;
 			(*str)++;
 		}
 	}

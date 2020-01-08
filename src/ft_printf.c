@@ -98,17 +98,11 @@ int	ft_printf(char *str, ...)
 		{
 			count += write(1, str, i++);
 			ft_init_param(&param, &str, &i);
-			while (ft_is_format(*str) == -1 && *str != '%')
-			{
-				if (!str)
-					return (-1);
-				str++;
-			}
-//	ft_handle_flags(&str, &param);
-//	ft_handle_field(&str, &param, &ap);
-//	if (!(ret = ft_handle_format(*(str++), param, &ap)))
-//		return (-1);
-//			count += ret;
+			ft_handle_flags(&str, &param);
+			ft_handle_field(&str, &param, &ap);
+			if (!(ret = ft_handle_format(*(str++), param, &ap)))
+				return (-1);
+			count += ret;
 		}
 		else
 			i++;
@@ -120,6 +114,15 @@ int	ft_printf(char *str, ...)
 
 int	main(void)
 {
-		ft_printf("Hello% m     % World !");
+		ft_printf("Hello%-*.*% World !", 10, 20);
 		return (0);
 }
+
+	/*
+	**	while (ft_is_format(*str) == -1 && *str != '%')
+	**	{
+	**		if (!str)
+	**			return (-1);
+	**		str++;
+	**	}
+	*/
