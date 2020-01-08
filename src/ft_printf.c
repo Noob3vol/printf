@@ -8,10 +8,25 @@
 
 int	pf_c(t_db tokens, void *value)
 {
+	int count;
+	char c_paggin;
 	char *c;
 
+	count = 0;
+	c_paggin = ' ';
+	if ((tokens.flags_mask & 3) < 2)
+	{
+		if (tokens.flags_mask & 1)
+			c_paggin = '0';
+		while (tokens.width-- > 1)
+			count += write(1, &c_paggin, 1);
+	}
 	c = (char *)value;
-	return (write(1, c, 1));
+	count += write(1, c, 1);
+	if (tokens.flags_mask & 2)
+		while (tokens.width-- > 0)
+			count += write(1, &c_paggin, 1);
+	return (count);
 }
 
 int	pf_s(t_db tokens, void *value)
@@ -56,23 +71,6 @@ void	ft_pf_putnbr(int nbr, int *count)
 	*count += write(1, &"0123456789"[(ft_abs(nbr % 10))], 1);
 }
 
-int	pf_dump_tokens(t_db tokens)
-{
-	int count;
-
-	count = 0;
-	if (tokens.flags_mask & 2)
-		count += write(1, "-", 1);
-	if (tokens.width >= 0)
-		ft_pf_putnbr(tokens.width, &count);
-	if (tokens.precision > 0)
-	{
-		count += write(1, ".", 1);
-		ft_pf_putnbr(tokens.precision, &count);
-	}
-	return (count);
-}
-
 void	ft_init_param(t_db *param, char **str, int *i)
 {
 	param->flags_mask = 0;
@@ -100,11 +98,17 @@ int	ft_printf(char *str, ...)
 		{
 			count += write(1, str, i++);
 			ft_init_param(&param, &str, &i);
-			ft_handle_flags(&str, &param);
-			ft_handle_field(&str, &param, &ap);
-			if (!(ret = ft_handle_format(*(str++), param, &ap)))
-				return (-1);
-			count += ret;
+			while (ft_is_format(*str) == -1 && *str != '%')
+			{
+				if (!str)
+					return (-1);
+				str++;
+			}
+//	ft_handle_flags(&str, &param);
+//	ft_handle_field(&str, &param, &ap);
+//	if (!(ret = ft_handle_format(*(str++), param, &ap)))
+//		return (-1);
+//			count += ret;
 		}
 		else
 			i++;
@@ -116,6 +120,6 @@ int	ft_printf(char *str, ...)
 
 int	main(void)
 {
-		ft_printf("Hello%      % World !");
+		ft_printf("Hello% m     % World !");
 		return (0);
 }

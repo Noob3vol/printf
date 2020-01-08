@@ -20,3 +20,20 @@ int	ft_abs(int nbr)
 
 	return (abs = (nbr < 0 ? -nbr : nbr));
 }
+
+int	ft_dump_tokens(t_db tokens)
+{
+	int count;
+
+	count = 0;
+	if (tokens.flags_mask & 2)
+		count += write(1, "-", 1);
+	if (tokens.width >= 0)
+		ft_pf_putnbr(tokens.width, &count);
+	if (tokens.precision > 0)
+	{
+		count += write(1, ".", 1);
+		ft_pf_putnbr(tokens.precision, &count);
+	}
+	return (count);
+}

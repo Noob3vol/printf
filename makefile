@@ -1,5 +1,4 @@
 
-
 #output
 NAME= test
 
@@ -22,10 +21,15 @@ D_LIB=lib
 T_SRC= $(addprefix $(D_SRC)/, $(SRC))
 T_HDR= 
 
+#compilation
+CC=clang
+DFLAG= -g3 -fsanitize=address
+WFLAG= -Wall -Werror -Wextra
+
 all : $(NAME)
 
 $(NAME) : $(OBJ) $(D_HDR)/$(HDR)
-	$(CC) -o $(NAME) -I$(D_HDR) $(OBJ) -I$(D_LIB)/include $(LIB)
+	$(CC) $(WFLAG) -o $(NAME) -I$(D_HDR) $(OBJ) -I$(D_LIB)/include $(D_LIB)/$(LIB)
 
 $(OBJ) : $(T_SRC)
 	$(CC) -I$(D_HDR) -c $(T_SRC) 
@@ -36,6 +40,6 @@ clean :
 fclean : clean
 	rm -f $(NAME)
 
-re : fclean re
+re : fclean all 
 
 .PHONY: all clean fclean re
