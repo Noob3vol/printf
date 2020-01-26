@@ -27,6 +27,7 @@ S_OUT	=	ft_putchar.c \
 		ft_putstr.c \
 		ft_putendl.c \
 		ft_putnbr.c \
+		ft_putnbr_base.c \
 		ft_putstr_non_printable.c \
 		ft_print_memory.c 
 

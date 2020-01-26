@@ -46,11 +46,35 @@ void	ft_handle_field(char **str, t_db *param, va_list *fields)
 		}
 	}
 }
+void	*ft_get_value(char c, va_list *arg)
+{
+	unsigned int	uvalue;
+	int		ivalue;
+	double		dvalue;
+	char		*svalue;
+	void		*ptr;
+
+	if (c == 'd' || c == 'i' || c == 'x' || c == 'X' || c == 'c')
+	{
+		ivalue = va_arg(*arg, int);
+		ptr = (void *)&ivalue;
+	}
+	else if (c == 'u')
+	{
+		uvalue = va_arg(*arg, unsigned int);
+		ptr = (void *)&uvalue;
+	}
+	else if (c == 's')
+	{
+		svalue = va_arg(*arg, char *);
+		ptr = (void *)svalue;
+	}
+	return (ptr);
+}
 
 int	ft_handle_format(char c, t_db param, va_list *arg)
 {
 	int	ret;
-	int	value;
 	void	*ptr;
 	int	(*fntab[])(t_db, void *) = 
 	{
@@ -73,7 +97,6 @@ int	ft_handle_format(char c, t_db param, va_list *arg)
 		ret = ft_dump_tokens(param);
 		return (ret += write(1, &c, 1));
 	}
-	value = va_arg(*arg, int);
-	ptr = &value;
+	ptr = ft_get_value(c, arg); 
 	return (fntab[ret](param, ptr));
 }

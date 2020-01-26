@@ -19,7 +19,7 @@ D_LIB=lib
 
 #target
 T_SRC= $(addprefix $(D_SRC)/, $(SRC))
-T_HDR= 
+T_HDR=
 
 #compilation
 CC=clang
