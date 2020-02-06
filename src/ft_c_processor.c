@@ -9,7 +9,7 @@ int	ft_is_flag(char c)
 
 int	ft_is_field(char c)
 {
-	if ((c >= '1' && c <= '9') || c == '*' || c == '.')
+	if ((c >= '0' && c <= '9') || c == '*' || c == '.')
 		return (1);
 	return (0);
 }

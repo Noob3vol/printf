@@ -6,7 +6,8 @@ NAME= test
 SRC=ft_printf.c \
     ft_utils.c \
     ft_c_processor.c \
-    ft_tokens_processor.c
+    ft_tokens_processor.c \
+    ft_output.c
 
 HDR= ft_printf.h
 LIB= libft.a
@@ -19,7 +20,7 @@ D_LIB=lib
 
 #target
 T_SRC= $(addprefix $(D_SRC)/, $(SRC))
-T_HDR= 
+T_HDR=
 
 #compilation
 CC=clang
