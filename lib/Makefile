@@ -6,7 +6,7 @@
 #    By: iguidado <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/18 11:15:40 by iguidado          #+#    #+#              #
-#    Updated: 2019/11/26 18:19:47 by iguidado         ###   ########.fr        #
+#    Updated: 2020/02/07 22:58:04 by iguidado         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ S_CTYPE = 	ft_isalpha.c \
 		ft_tolower.c 
 
 S_STD	=	ft_atoi.c \
+		ft_abs.c \
 		ft_itoa.c 
 
 S_LST =		ft_lstnew.c \

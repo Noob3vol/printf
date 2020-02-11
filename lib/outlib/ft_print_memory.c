@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_memory.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iguidado <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/07 22:59:54 by iguidado          #+#    #+#             */
+/*   Updated: 2020/02/07 23:03:36 by iguidado         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
+
 static void	ft_print_addrhex_n(unsigned long nbr, unsigned int n)
 {
 	if (n)
@@ -39,8 +52,7 @@ static void	ft_printmem_str_format(unsigned char *str, unsigned int size)
 	}
 }
 
-
-void	*ft_print_memory(void *addr, unsigned int size)
+void		*ft_print_memory(void *addr, unsigned int size)
 {
 	unsigned int i;
 	unsigned int str_len;

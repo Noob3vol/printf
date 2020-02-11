@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_c_processor.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iguidado <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/07 04:51:01 by iguidado          #+#    #+#             */
+/*   Updated: 2020/02/07 05:03:51 by iguidado         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	ft_is_flag(char c)
@@ -14,10 +26,9 @@ int	ft_is_field(char c)
 	return (0);
 }
 
-int	ft_is_format(char c)
+int	ft_is_format(char c, char *formats)
 {
-	char 	formats[] = FORMAT;
-	int	i;
+	int		i;
 
 	i = 0;
 	while (formats[i])
@@ -27,4 +38,18 @@ int	ft_is_format(char c)
 		i++;
 	}
 	return (-1);
+}
+
+int	ft_pf_atoi(char **str)
+{
+	int	nbr;
+
+	nbr = 0;
+	while (**str >= '0' && **str <= '9')
+	{
+		nbr *= 10;
+		nbr += (**str) - '0';
+		++(*str);
+	}
+	return (nbr);
 }

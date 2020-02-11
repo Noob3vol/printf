@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putstr_non_printable.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iguidado <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/07 22:40:54 by iguidado          #+#    #+#             */
+/*   Updated: 2020/02/07 22:59:36 by iguidado         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 
 static void	ft_printhex(unsigned char c)
@@ -7,11 +19,11 @@ static void	ft_printhex(unsigned char c)
 	write(1, &"0123456789abcdef"[c % 16], 1);
 }
 
-void	ft_putstr_non_printable(char *str)
+void		ft_putstr_non_printable(char *str)
 {
 	unsigned char c;
 
-	while(*str)
+	while (*str)
 	{
 		c = (unsigned char)*str;
 		if (c < 32 || c > 126)
