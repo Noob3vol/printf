@@ -14,7 +14,6 @@
 
 char		ftpf_get_flags(const char **str)
 {
-	int			ret;
 	char		msk;
 
 	msk = 0;
@@ -37,6 +36,7 @@ int			ftpf_get_fields(const char **str, va_list arg)
 	if (**str == '*')
 	{
 		field = va_arg(arg, int);
+		(*str)++;
 	}
 	else
 	{

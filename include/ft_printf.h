@@ -8,7 +8,7 @@
 #define BASE10		"0123456789"
 #define BASE16_LOW	"0123456789abcdef"
 #define BASE16_UPP	"0123456789ABCDEF"
-#define FLAGS		"0- +#'"
+#define FLAGS		"0-+#'"
 #define FLAG_ALL	3
 #define FLAG_MIN	2
 #define FLAG_0		1
@@ -46,6 +46,7 @@ int		ftpf_putf_u(unsigned int nbr, int len);
 int		ftpf_putf_x(unsigned int nbr, int len);
 int		ftpf_putf_hex(unsigned int nbr, int len);
 int		ftpf_putf_p(unsigned long nbr, int len);
+int		ftpf_putf_s(char *str, int len);
 
 
 /*

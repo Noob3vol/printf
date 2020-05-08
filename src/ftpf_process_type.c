@@ -24,17 +24,28 @@ int	ftpf_c(unsigned char c, t_format *fmt)
 	return (count);
 }
 
-int	ftpf_s(char *str, t_format *fmt)
+int	ftpf_putf_s(char *str, int len)
 {
 	int count;
+	int i;
+
+	count = 0;
+	i = 0;
+	if (!str && len == 6)
+		count += write(1, "(null)", len);
+	else if (str)
+		count += write(1, str, len);
+	return (count);
+}
+
+int	ftpf_s(char *str, t_format *fmt)
+{
+	int		count;
 
 	count = 0;
 	fmt->preci = ftpf_ruler_s(str, fmt->preci);
 	count += ftpf_padding_left(*fmt);
-	if (!str)
-		count += write(1, "(null)", fmt->preci);
-	else
-		count += write(1, str, fmt->preci);
+	count += ftpf_putf_s(str, fmt->preci);
 	count += ftpf_padding_right(*fmt);
 	return (count);
 }

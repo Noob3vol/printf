@@ -12,45 +12,62 @@ SRC = ft_printf.c\
 	ftpf_nbr.c\
 	ftpf_prefix.c
 
+MAIN_TEST = test.c
+
+HDR	= ft_printf.h
+HDR_LIB = libft.h
+
 # Dir
 
-D_LIB = lib
-D_LIBINC = include
+D_LIB = libft
+D_INC_LIB = include
 D_SRC = src
-D_HDR = include
+D_INC = include
+
+# Path
+
+P_HDR = $(D_INC)/$(HDR)
+P_HDR_LIB = $(D_LIB)/$(D_INC_LIB)/$(HDR_LIB)
 
 # Auto-variable
-LIBHDR = $(addsuffix .h, $(basename $(LIBNAME)))
-OBJ = $(addsuffix .o, $(basename $(SRC)))
+OBJ = $(SRC:.c=.o)
 SRCS = $(addprefix $(D_SRC)/, $(SRC))
-INC = $(D_HDR)
-L_INC = $(D_LIB)/$(D_HDR)
+OBJS = $(SRCS:.c=.o)
+INC = $(D_INC)
+L_INC = $(D_LIB)/$(D_INC_LIB)
 
 # Compiler
 
 CC = clang
-D_FLAG = -g3 -fsanitize=address
-W_FLAG = -Wall -Werror -Wextra
+# flag
+
+F_DBG = -g3 -fsanitize=address
+F_WAR = -Wall -Werror -Wextra
+F_INC = -I$(L_INC) -I$(INC)
+FLAG = $(F_DBG) $(F_WAR) $(F_INC)
 
 all : $(NAME)
 
-$(NAME) : $(OBJ) $(LIB)
-	ar rc $(NAME) $(OBJ) $(D_LIB)/$(LIB)
+$(NAME) : $(OBJS) $(LIB)
+	ar rc $(NAME) $(OBJS)
 	ranlib $(NAME)
 
-$(OBJ) : $(SRCS)
-	$(CC) -I$(INC) -I$(L_INC) -c $(SRCS) 
+test : $(NAME) $(P_HDR_LIB) $(P_HDR)
+	$(CC) $(FLAG) $(MAIN_TEST) $(NAME) $(D_LIB)/$(LIB)
+
+%.o : %.c
+	$(CC) $(F_WAR) $(F_INC) -o $@ -c $< 
 
 $(LIB) :
 	make -C $(D_LIB)
 
 clean :
-	rm -f ${OBJ}
-	make clean -C ${D_LIB}
+	rm -f $(OBJS)
+	make clean -C $(D_LIB)
 
 fclean : clean
-	rm -f ${NAME}
-	make fclean -C ${D_LIB}
+	rm -f $(NAME)
+	make fclean -C $(D_LIB)
 
 re : fclean all
 

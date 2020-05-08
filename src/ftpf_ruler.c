@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft.h"
 
 int	ftpf_ruler_i(int nbr, int preci)
 {
@@ -82,11 +83,13 @@ int	ftpf_ruler_p(unsigned long nbr, int preci)
 	return (nbrlen + 2);
 }
 
-int	ftpf_ruler_s(char *str, int preci)
+int ftpf_ruler_s(char *str, int preci)
 {
-	if (!str)
+	if (!str && (preci < 0 || preci >= 6))
 		return (6);
-	else if (preci == -1 || ft_strlen(str) < preci)
+	else if (!str)
+		return (0);
+	if (preci == -1 || (int)ft_strlen(str) < preci)
 		return (ft_strlen(str));
 	return (preci);
 }

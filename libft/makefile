@@ -14,7 +14,7 @@
 NAME	=	libft.a
 
 #Dir
-HEADER	=	./include
+INC	=	./include
 D_OUT 	=	./outlib
 D_MEM 	=	./mem
 D_STR	=	./string
@@ -75,11 +75,11 @@ S_LST =		ft_lstnew.c \
 		ft_lstmap.c \
 		ft_lstiter.c 
 
-HFILE = $(addprefix $(HEADER), /$(addsuffix .h, $(basename $(NAME))))
+HFILE = $(addprefix $(INC), /$(addsuffix .h, $(basename $(NAME))))
 
 #Compile
 CC = clang
-HFLAG = -I $(HEADER)
+HFLAG = -I $(INC)
 DEBUG = -g3 -fsanitize=address
 WFLAG = -Wall -Werror -Wextra
 
@@ -99,7 +99,7 @@ SRCS =	$(addprefix $(D_OUT)/, $(S_OUT)) \
 	$(addprefix $(D_STR)/, $(S_STR)) \
 	$(addprefix $(D_CTYPE)/, $(S_CTYPE))
 
-OBJECT = $(SRC:.c=.o) 
+OBJECT = $(SRCS:.c=.o) 
 
 
 all: $(NAME)
@@ -108,8 +108,8 @@ $(NAME): $(OBJECT)
 	ar rc $(NAME) $(OBJECT)
 	ranlib $(NAME)
 
-$(OBJECT) : $(SRCS) $(HFILE)
-	$(CC) $(WFLAG) $(HFLAG) -c $(SRCS)
+%.o : %.c $(HFILE)
+	$(CC) $(WFLAG) $(HFLAG) -o $@ -c $<
 
 test: $(SRCS)
 	$(CC) -o test $(WFLAG) $(HFLAG) $(SRCS)
