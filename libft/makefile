@@ -101,7 +101,6 @@ SRCS =	$(addprefix $(D_OUT)/, $(S_OUT)) \
 
 OBJECT = $(SRCS:.c=.o) 
 
-
 all: $(NAME)
 
 $(NAME): $(OBJECT)

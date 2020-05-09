@@ -6,7 +6,7 @@
 /*   By: iguidado <iguidado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 14:48:28 by iguidado          #+#    #+#             */
-/*   Updated: 2020/04/09 14:48:30 by iguidado         ###   ########.fr       */
+/*   Updated: 2020/05/09 19:11:52 by iguidado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ int	ftpf_ruler_p(unsigned long nbr, int preci)
 	return (nbrlen + 2);
 }
 
-int ftpf_ruler_s(char *str, int preci)
+int	ftpf_ruler_s(char *str, int preci)
 {
 	if (!str && (preci < 0 || preci >= 6))
 		return (6);
 	else if (!str)
 		return (0);
-	if (preci == -1 || (int)ft_strlen(str) < preci)
+	if (preci <= -1 || (int)ft_strlen(str) < preci)
 		return (ft_strlen(str));
 	return (preci);
 }
