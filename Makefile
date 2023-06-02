@@ -1,16 +1,16 @@
-
 #Name
+
 NAME = libftprintf.a
 
 LIB = libft.a
 
 SRC = ft_printf.c\
-	ftpf_get_format.c\
-	ftpf_process_type.c\
-	ftpf_ruler.c\
-	ftpf_putf.c\
-	ftpf_nbr.c\
-	ftpf_prefix.c
+	ft_get_format.c\
+	ft_ruler.c\
+	ft_padding.c\
+	ft_format_nbr.c\
+	ft_format_c.c\
+	ft_putf.c
 
 MAIN_TEST = test.c
 
@@ -48,9 +48,9 @@ FLAG = $(F_DBG) $(F_WAR) $(F_INC)
 
 all : $(NAME)
 
-$(NAME) : $(OBJS) $(LIB)
-	ar rc $(NAME) $(OBJS)
-	ranlib $(NAME)
+$(NAME) : $(OBJS) $(D_LIB)/$(LIB)
+	cp $(D_LIB)/$(LIB) $(NAME)
+	ar rcs $(NAME) $(OBJS)
 
 test : $(NAME) $(P_HDR_LIB) $(P_HDR)
 	$(CC) $(FLAG) $(MAIN_TEST) $(NAME) $(D_LIB)/$(LIB)
@@ -58,7 +58,7 @@ test : $(NAME) $(P_HDR_LIB) $(P_HDR)
 %.o : %.c
 	$(CC) $(F_WAR) $(F_INC) -o $@ -c $< 
 
-$(LIB) :
+$(D_LIB)/$(LIB) :
 	make -C $(D_LIB)
 
 clean :

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ftpf_prefix.c                                      :+:      :+:    :+:   */
+/*   ft_padding.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iguidado <iguidado@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 16:24:20 by iguidado          #+#    #+#             */
-/*   Updated: 2020/04/09 16:24:22 by iguidado         ###   ########.fr       */
+/*   Updated: 2021/02/15 23:40:18 by iguidado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ftpf_padding_left(t_format fmt)
+int	ft_padding_left(t_format fmt)
 {
 	int count;
 
@@ -27,7 +27,7 @@ int	ftpf_padding_left(t_format fmt)
 	return (count);
 }
 
-int	ftpf_padding_0(t_format fmt)
+int	ft_padding_0(t_format fmt)
 {
 	int count;
 
@@ -42,7 +42,7 @@ int	ftpf_padding_0(t_format fmt)
 	return (count);
 }
 
-int	ftpf_padding_right(t_format fmt)
+int	ft_padding_right(t_format fmt)
 {
 	int count;
 
